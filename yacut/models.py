@@ -43,8 +43,6 @@ class URLMap(db.Model):
             short = get_unique_id(self.__class__, self.__class__.short)
         elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(r'[a-zA-Z0-9]+', '', short):
             raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
-        # elif re.sub(r'[a-zA-Z0-9]+', '', short):
-        #    raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
         elif self.__class__.query.filter_by(short=short).count():
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
