@@ -5,5 +5,5 @@ import os
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'  # os.getenv('DATABASE_URI')
     SECRET_KEY = os.getenv('SECRET_KEY')  # secrets.token_hex(16)
