@@ -4,7 +4,7 @@ from . import app, db
 from .constants import BASE_URL
 from .forms import MyForm
 from .models import URLMap
-from .utils import get_unique_id, get_or_404
+from .utils import get_unique_id
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -21,4 +21,4 @@ def index_view() -> Response:
 
 @app.route('/<string:short_id>')
 def redirection(short_id) -> Response:
-    return redirect(get_or_404(URLMap, URLMap.short, short_id, api=False).original)
+    return redirect(URLMap().get_original_link(short_id, api=False))

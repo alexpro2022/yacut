@@ -9,7 +9,7 @@ from .constants import (
     FORM_ORIGINAL, FORM_SHORT,
 )
 from .error_handlers import InvalidAPIUsage
-from .utils import get_unique_id
+from .utils import get_or_404, get_unique_id
 
 
 class URLMap(db.Model):
@@ -59,3 +59,6 @@ class URLMap(db.Model):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self
+
+    def get_original_link(self, short_id, api=True):
+        return get_or_404(self.__class__, self.__class__.short, short_id, api).original
