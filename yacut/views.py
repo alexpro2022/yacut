@@ -4,7 +4,7 @@ from . import app, db
 from .constants import BASE_URL
 from .forms import MyForm
 from .models import URLMap
-from .utils import create, get_unique_id
+from .utils import get_unique_id
 
 
 @app.route('/', methods=('GET', 'POST'))
@@ -13,10 +13,7 @@ def index_view() -> Response:
     if form.validate_on_submit():
         if not form.custom_id.data:
             form.custom_id.data = get_unique_id(URLMap, URLMap.short)
-        create(db, URLMap(
-            original=form.original_link.data,
-            short=form.custom_id.data,
-        ))
+        URLMap().create(db, form.data, validation=False)
         flash('Ваша новая ссылка готова:')
         flash(f'{BASE_URL + form.custom_id.data}', 'url')
     return render_template('index.html', form=form)

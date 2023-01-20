@@ -2,15 +2,20 @@ import re
 from datetime import datetime as dt
 
 from . import db
-from .constants import BASE_URL, CUSTOM_ID_SIZE_MANUAL
+from .constants import (
+    API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
+    API_SHORT_REQUEST, API_SHORT_RESPONSE,
+    BASE_URL, CUSTOM_ID_SIZE_MANUAL,
+    FORM_ORIGINAL, FORM_SHORT,
+)
 from .error_handlers import InvalidAPIUsage
-from .utils import create, get_unique_id
+from .utils import get_unique_id
 
 
 class URLMap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     original = db.Column(db.String(256), nullable=False)
-    short = db.Column(db.String(16), unique=True, nullable=False)
+    short = db.Column(db.String(CUSTOM_ID_SIZE_MANUAL), unique=True, nullable=False)
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
 
     def __repr__(self):
@@ -22,18 +27,18 @@ class URLMap(db.Model):
         )
 
     def to_representation(self) -> dict:
-        return dict(
-            url=self.original,
-            short_link=BASE_URL + self.short,
-        )
+        return {
+            API_ORIGINAL_RESPONSE: self.original,
+            API_SHORT_RESPONSE: (BASE_URL + self.short),
+        }
 
     def clean_data(self, data: dict, post: bool = False):
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
-        original = data.get('url', '')
-        short = data.get('custom_id', '')
+        original = data.get(API_ORIGINAL_REQUEST, '')
+        short = data.get(API_SHORT_REQUEST, '')
         if post and not original:
-            raise InvalidAPIUsage('"url" является обязательным полем!')
+            raise InvalidAPIUsage(f'"{API_ORIGINAL_REQUEST}" является обязательным полем!')
         if not short:
             short = get_unique_id(self.__class__, self.__class__.short)
         elif len(short) > CUSTOM_ID_SIZE_MANUAL:
@@ -44,10 +49,15 @@ class URLMap(db.Model):
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
 
-    def to_intenal_value(self, data: dict, post: bool = False):
-        self.original, self.short = self.clean_data(data, post)
+    def to_intenal_value(self, data: dict, clean=True, post: bool = False):
+        if clean:
+            self.original, self.short = self.clean_data(data, post)
+        else:
+            self.original = data[FORM_ORIGINAL]
+            self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data):
-        create(db, self.to_intenal_value(data, True))
+    def create(self, db, data, validation=True):
+        db.session.add(self.to_intenal_value(data, clean=validation, post=True))
+        db.session.commit()
         return self

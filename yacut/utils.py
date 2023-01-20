@@ -15,12 +15,7 @@ def get_unique_id(model, field) -> str:
     return unique_id
 
 
-def create(db, obj):
-    db.session.add(obj)
-    db.session.commit()
-
-
-def api_get_or_404(model, field, criterion):
+def get_or_404(model, field, criterion):
     obj = model.query.filter(field == criterion).first()
     if obj is None:
         raise InvalidAPIUsage('Указанный id не найден', 404)

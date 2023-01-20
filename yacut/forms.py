@@ -29,7 +29,6 @@ class MyForm(FlaskForm):
         if not field.data:
             return
 
-        # invalid_symbols = set(re.sub(r'[a-zA-Z0-9]+', '', field.data))
         invalid_symbols = set(re.sub(r'[a-zA-Z0-9]+', '', field.data))
         if invalid_symbols:
             raise ValidationError(
