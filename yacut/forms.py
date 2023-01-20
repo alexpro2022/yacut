@@ -26,13 +26,11 @@ class MyForm(FlaskForm):
     submit = SubmitField('Создать')
 
     def validate_custom_id(form, field) -> None:
-        if not field.data:
-            return
+        if field.data:
+            invalid_symbols = set(re.sub(r'[a-zA-Z0-9]+', '', field.data))
+            if invalid_symbols:
+                raise ValidationError(
+                    f'Неверные символы {invalid_symbols} в идентификаторе: "{field.data}"')
 
-        invalid_symbols = set(re.sub(r'[a-zA-Z0-9]+', '', field.data))
-        if invalid_symbols:
-            raise ValidationError(
-                f'Неверные символы {invalid_symbols} в идентификаторе: "{field.data}"')
-
-        if URLMap.query.filter_by(short=field.data).count():
-            raise ValidationError(f'Имя {field.data} уже занято!')
+            if URLMap.query.filter_by(short=field.data).count():
+                raise ValidationError(f'Имя {field.data} уже занято!')
