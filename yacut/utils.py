@@ -1,5 +1,7 @@
 import random
 
+from werkzeug.exceptions import NotFound
+
 from .constants import ALPHABET, CUSTOM_ID_SIZE_AUTO
 from .error_handlers import InvalidAPIUsage
 
@@ -15,8 +17,11 @@ def get_unique_id(model, field) -> str:
     return unique_id
 
 
-def get_or_404(model, field, criterion):
-    obj = model.query.filter(field == criterion).first()
-    if obj is None:
-        raise InvalidAPIUsage('Указанный id не найден', 404)
+def get_or_404(model, field, criterion, api=True):
+    try:
+        obj = model.query.filter(field == criterion).first_or_404()
+    except NotFound:
+        if api:
+            raise InvalidAPIUsage('Указанный id не найден', 404)
+        raise NotFound
     return obj
