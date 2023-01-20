@@ -7,9 +7,7 @@ from .utils import api_get_or_404
 
 @app.route('/api/id/', methods=('POST',))
 def api_create():
-    # url_map = URLMap().create(db, request.get_json())
     return jsonify(
-        # url_map.to_representation()
         URLMap().create(db, request.get_json()).to_representation()
     ), 201
 
