@@ -35,8 +35,8 @@ class URLMap(db.Model):
     def clean_data(self, data: dict, post: bool = False):
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
-        original = data.get(API_ORIGINAL_REQUEST, '')
-        short = data.get(API_SHORT_REQUEST, '')
+        original = data.get(API_ORIGINAL_REQUEST)
+        short = data.get(API_SHORT_REQUEST)
         if post and not original:
             raise InvalidAPIUsage(f'"{API_ORIGINAL_REQUEST}" является обязательным полем!')
         if not short:
