@@ -2,8 +2,6 @@ import re
 from datetime import datetime as dt
 from typing import Dict, Tuple
 
-# from flask_sqlalchemy import SQLAlchemy
-
 from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
     API_SHORT_REQUEST, API_SHORT_RESPONSE,
@@ -25,9 +23,8 @@ class PKModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
 
-class URLMap(TimestampMixin, db.Model):
+class URLMap(TimestampMixin, PKModel):
     query_class = MyQuery
-    id = db.Column(db.Integer, primary_key=True)
     original = db.Column(
         db.String(LINK_SIZE_MAX),
         nullable=False,
