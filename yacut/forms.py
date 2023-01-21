@@ -4,8 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import InputRequired, Length, URL, ValidationError
 
-from .constants import CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN
-from .models import URLMap
+from settings import CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN, REGEXP
+from yacut.models import URLMap
 
 
 class MyForm(FlaskForm):
@@ -20,14 +20,12 @@ class MyForm(FlaskForm):
         Length(
             max=CUSTOM_ID_SIZE_MANUAL,
             message='Идентификатор не может быть длиннее %(max)d символов.'),
-        # Здесь Regexp не работает, так как это поле может быть пустым
-        # Regexp(r'[a-zA-Z0-9]*', message='Не соотвествует шаблону.'),
     ])
     submit = SubmitField('Создать')
 
     def validate_custom_id(form, field) -> None:
         if field.data:
-            invalid_symbols = set(re.sub(r'[a-zA-Z0-9]+', '', field.data))
+            invalid_symbols = set(re.sub(REGEXP, '', field.data))
             if invalid_symbols:
                 raise ValidationError(
                     f'Неверные символы {invalid_symbols} в идентификаторе: "{field.data}"')

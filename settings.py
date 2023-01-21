@@ -1,9 +1,23 @@
 import os
-# import secrets
-# secrets не проходит тесты, хотя все работает
+import string as s
+
+
+ALPHABET = s.ascii_letters + s.digits
+BASE_URL = 'http://localhost/'
+CUSTOM_ID_SIZE_AUTO = 6
+CUSTOM_ID_SIZE_MANUAL = 16
+LINK_SIZE_MAX = 256
+LINK_SIZE_MIN = 10
+API_ORIGINAL_REQUEST = 'url'
+API_SHORT_REQUEST = 'custom_id'
+API_ORIGINAL_RESPONSE = 'url'
+API_SHORT_RESPONSE = 'short_link'
+FORM_ORIGINAL = 'original_link'
+FORM_SHORT = 'custom_id'
+REGEXP = r'[a-zA-Z0-9]+'
 
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
-    SECRET_KEY = os.getenv('SECRET_KEY')  # secrets.token_hex(16)
+    SECRET_KEY = os.getenv('SECRET_KEY')

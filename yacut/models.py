@@ -1,24 +1,41 @@
 import re
 from datetime import datetime as dt
 
-from . import db
-from .constants import (
+from flask_sqlalchemy import SQLAlchemy
+
+from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
     API_SHORT_REQUEST, API_SHORT_RESPONSE,
     BASE_URL, CUSTOM_ID_SIZE_MANUAL,
-    FORM_ORIGINAL, FORM_SHORT,
+    FORM_ORIGINAL, FORM_SHORT, LINK_SIZE_MAX, REGEXP,
 )
-from .error_handlers import InvalidAPIUsage
-from .utils import get_or_404, get_unique_id
+from yacut import db
+from yacut.exceptions import InvalidAPIUsage
+from yacut.utils import get_unique_id
 
 
-class URLMap(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    original = db.Column(db.String(256), nullable=False)
-    short = db.Column(db.String(CUSTOM_ID_SIZE_MANUAL), unique=True, nullable=False)
+class TimestampMixin:
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
 
-    def __repr__(self):
+
+class PKModel(db.Model):
+    __abstract__ = True
+    id = db.Column(db.Integer, primary_key=True)
+
+
+class URLMap(TimestampMixin, PKModel):
+    original = db.Column(
+        db.String(LINK_SIZE_MAX),
+        nullable=False,
+    )
+    short = db.Column(
+        db.String(CUSTOM_ID_SIZE_MANUAL),
+        unique=True,
+        nullable=False,
+        index=True,
+    )
+
+    def __repr__(self) -> str:
         return (
             f'id: {self.id}\n'
             f'original: {self.original}\n'
@@ -26,13 +43,12 @@ class URLMap(db.Model):
             f'timestamp: {self.timestamp}\n'
         )
 
-    def to_representation(self) -> dict:
-        return {
-            API_ORIGINAL_RESPONSE: self.original,
-            API_SHORT_RESPONSE: (BASE_URL + self.short),
-        }
+    @classmethod
+    def get_original_link(cls, short_id: str, api: bool = True) -> str:
+        return cls.query.filter_by(short=short_id).first_or_404(api).original
 
-    def clean_data(self, data: dict, post: bool = False):
+    @classmethod
+    def __clean_data(cls, data: dict[str, str], post: bool = False) -> tuple[str, str]:
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
@@ -40,25 +56,28 @@ class URLMap(db.Model):
         if post and not original:
             raise InvalidAPIUsage(f'"{API_ORIGINAL_REQUEST}" является обязательным полем!')
         if not short:
-            short = get_unique_id(self.__class__, self.__class__.short)
-        elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(r'[a-zA-Z0-9]+', '', short):
+            short = get_unique_id(cls, cls.short)
+        elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(REGEXP, '', short):
             raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
-        elif self.__class__.query.filter_by(short=short).count():
+        elif cls.query.filter_by(short=short).count():
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
 
-    def to_intenal_value(self, data: dict, clean=True, post: bool = False):
+    def to_intenal_value(self, data: dict[str, str], clean: bool = True, post: bool = False):
         if clean:
-            self.original, self.short = self.clean_data(data, post)
+            self.original, self.short = self.__class__.__clean_data(data, post)
         else:
             self.original = data[FORM_ORIGINAL]
             self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data, validation=True):
+    def create(self, db: SQLAlchemy, data: dict[str, str], validation: bool = True):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self
 
-    def get_original_link(self, short_id, api=True):
-        return get_or_404(self.__class__, self.__class__.short, short_id, api).original
+    def to_representation(self) -> dict[str, str]:
+        return {
+            API_ORIGINAL_RESPONSE: self.original,
+            API_SHORT_RESPONSE: (BASE_URL + self.short),
+        }

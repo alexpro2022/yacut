@@ -1,32 +1,23 @@
-from flask import render_template, jsonify
+from http import HTTPStatus
+from typing import Literal
 
-from . import app, db
+from flask import render_template, jsonify, Response
+
+from yacut import app, db
+from yacut.exceptions import InvalidAPIUsage
 
 
-@app.errorhandler(404)
-def page_not_found(error):
-    return render_template('404.html'), 404
+@app.errorhandler(HTTPStatus.NOT_FOUND)
+def page_not_found(error) -> tuple[str, Literal[HTTPStatus.NOT_FOUND]]:
+    return render_template('404.html'), HTTPStatus.NOT_FOUND
 
 
-@app.errorhandler(500)
-def internal_error(error):
+@app.errorhandler(HTTPStatus.INTERNAL_SERVER_ERROR)
+def internal_error(error) -> tuple[str, Literal[HTTPStatus.INTERNAL_SERVER_ERROR]]:
     db.session.rollback()
-    return render_template('500.html'), 500
-
-
-class InvalidAPIUsage(Exception):
-    status_code = 400
-
-    def __init__(self, msg, status_code=None):
-        super().__init__()
-        self.msg = msg
-        if status_code is not None:
-            self.status_code = status_code
-
-    def to_dict(self):
-        return dict(message=self.msg)
+    return render_template('500.html'), HTTPStatus.INTERNAL_SERVER_ERROR
 
 
 @app.errorhandler(InvalidAPIUsage)
-def invalid_api_usage(error):
-    return jsonify(error.to_dict()), error.status_code
+def invalid_api_usage(error) -> tuple[Response, int]:
+    return jsonify(error.to_representation()), error.status_code

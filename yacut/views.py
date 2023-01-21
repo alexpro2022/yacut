@@ -1,14 +1,14 @@
 from flask import flash, redirect, render_template, Response
 
-from . import app, db
-from .constants import BASE_URL
-from .forms import MyForm
-from .models import URLMap
-from .utils import get_unique_id
+from settings import BASE_URL
+from yacut import app, db
+from yacut.forms import MyForm
+from yacut.models import URLMap
+from yacut.utils import get_unique_id
 
 
 @app.route('/', methods=('GET', 'POST'))
-def index_view() -> Response:
+def index_view() -> str:
     form = MyForm()
     if form.validate_on_submit():
         if not form.custom_id.data:
@@ -20,5 +20,5 @@ def index_view() -> Response:
 
 
 @app.route('/<string:short_id>')
-def redirection(short_id) -> Response:
-    return redirect(URLMap().get_original_link(short_id, api=False))
+def redirection(short_id: str) -> Response:
+    return redirect(URLMap.get_original_link(short_id, api=False))
