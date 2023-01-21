@@ -60,5 +60,5 @@ class URLMap(db.Model):
         db.session.commit()
         return self
 
-    def get_original_link(self, short_id, api=True):
+    def get_original_link(self, short_id, api=True) -> str:
         return get_or_404(self.__class__, self.__class__.short, short_id, api).original
