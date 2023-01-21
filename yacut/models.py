@@ -12,6 +12,7 @@ from settings import (
 )
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
+from yacut.queries import MyQuery
 from yacut.utils import get_unique_id
 
 
@@ -25,6 +26,7 @@ class PKModel(db.Model):
 
 
 class URLMap(TimestampMixin, PKModel):
+    query_class = MyQuery
     original = db.Column(
         db.String(LINK_SIZE_MAX),
         nullable=False,
