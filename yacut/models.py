@@ -17,9 +17,13 @@ class TimestampMixin:
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
 
 
-class URLMap(TimestampMixin, db.Model):
-    query_class = MyQuery
+class ModelPK(db.Model):
+    __abstract__ = True
     id = db.Column(db.Integer, primary_key=True)
+
+
+class URLMap(TimestampMixin, ModelPK):
+    query_class = MyQuery
     original = db.Column(
         db.String(LINK_SIZE_MAX),
         nullable=False,
@@ -42,7 +46,6 @@ class URLMap(TimestampMixin, db.Model):
     @classmethod
     def get_original_link(cls, short_id: str, api: bool = True) -> str:
         return cls.query.filter_by(short=short_id).first_or_404(api).original
-        # return get_or_404(cls, cls.short, short_id, api).original
 
     @classmethod
     def __clean_data(cls, data, post: bool = False):

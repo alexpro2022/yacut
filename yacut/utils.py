@@ -1,9 +1,9 @@
 import random
 
-from werkzeug.exceptions import NotFound
+# from werkzeug.exceptions import NotFound
 
 from settings import ALPHABET, CUSTOM_ID_SIZE_AUTO
-from yacut.exceptions import InvalidAPIUsage
+# from yacut.exceptions import InvalidAPIUsage
 
 
 def get_short_id() -> str:
@@ -17,6 +17,7 @@ def get_unique_id(model, field) -> str:
     return unique_id
 
 
+'''
 def get_or_404(model, field, criterion, api=True):
     try:
         obj = model.query.filter(field == criterion).first_or_404()
@@ -25,3 +26,4 @@ def get_or_404(model, field, criterion, api=True):
             raise InvalidAPIUsage('Указанный id не найден', 404)
         raise NotFound
     return obj
+'''
