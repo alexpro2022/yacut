@@ -1,33 +1,24 @@
 import re
 from datetime import datetime as dt
-from typing import Dict, Tuple
 
+from yacut import db
 from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
     API_SHORT_REQUEST, API_SHORT_RESPONSE,
     BASE_URL, CUSTOM_ID_SIZE_MANUAL,
-    FORM_ORIGINAL, FORM_SHORT, LINK_SIZE_MAX, REGEXP,
+    FORM_ORIGINAL, FORM_SHORT, REGEXP,
 )
-from yacut import db
-from yacut.exceptions import InvalidAPIUsage
+from yacut.error_handlers import InvalidAPIUsage
 from yacut.utils import get_or_404, get_unique_id
 
 
 class URLMap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    original = db.Column(db.String(256), nullable=False)
+    short = db.Column(db.String(CUSTOM_ID_SIZE_MANUAL), unique=True, nullable=False)
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
-    original = db.Column(
-        db.String(LINK_SIZE_MAX),
-        nullable=False,
-    )
-    short = db.Column(
-        db.String(CUSTOM_ID_SIZE_MANUAL),
-        unique=True,
-        nullable=False,
-        index=True,
-    )
 
-    def __repr__(self) -> str:
+    def __repr__(self):
         return (
             f'id: {self.id}\n'
             f'original: {self.original}\n'
@@ -35,10 +26,13 @@ class URLMap(db.Model):
             f'timestamp: {self.timestamp}\n'
         )
 
-    def get_original_link(self, short_id, api=True) -> str:
-        return get_or_404(self.__class__, self.__class__.short, short_id, api).original
+    def to_representation(self) -> dict:
+        return {
+            API_ORIGINAL_RESPONSE: self.original,
+            API_SHORT_RESPONSE: (BASE_URL + self.short),
+        }
 
-    def _clean_data(self, data: dict, post: bool = False) -> Tuple[str, str]:
+    def clean_data(self, data: dict, post: bool = False):
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
@@ -53,21 +47,18 @@ class URLMap(db.Model):
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
 
-    def to_intenal_value(self, data: Dict[str, str], clean: bool = True, post: bool = False):
+    def to_intenal_value(self, data: dict, clean=True, post: bool = False):
         if clean:
-            self.original, self.short = self._clean_data(data, post)
+            self.original, self.short = self.clean_data(data, post)
         else:
             self.original = data[FORM_ORIGINAL]
             self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data: Dict[str, str], validation: bool = True):
+    def create(self, db, data, validation=True):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self
 
-    def to_representation(self) -> Dict[str, str]:
-        return {
-            API_ORIGINAL_RESPONSE: self.original,
-            API_SHORT_RESPONSE: (BASE_URL + self.short),
-        }
+    def get_original_link(self, short_id, api=True):
+        return get_or_404(self.__class__, self.__class__.short, short_id, api).original
