@@ -1,4 +1,5 @@
 import re
+from typing import Any
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
@@ -23,7 +24,7 @@ class MyForm(FlaskForm):
     ])
     submit = SubmitField('Создать')
 
-    def validate_custom_id(form, field) -> None:
+    def validate_custom_id(form: Any, field: Any) -> None:
         if field.data:
             invalid_symbols = set(re.sub(REGEXP, '', field.data))
             if invalid_symbols:

@@ -5,7 +5,7 @@ from typing import Dict
 class InvalidAPIUsage(Exception):
     status_code = HTTPStatus.BAD_REQUEST
 
-    def __init__(self, msg, status_code=None) -> None:
+    def __init__(self, msg: str, status_code: int = None) -> None:
         super().__init__()
         self.msg = msg
         if status_code is not None:
