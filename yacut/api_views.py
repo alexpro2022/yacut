@@ -16,4 +16,4 @@ def api_create() -> Tuple[Response, Literal[HTTPStatus.CREATED]]:
 
 @app.route('/api/id/<string:short_id>/')
 def api_get_link(short_id: str) -> Tuple[Response, Literal[HTTPStatus.OK]]:
-    return jsonify(url=URLMap.get_original_link(short_id)), HTTPStatus.OK
+    return jsonify(url=URLMap().get_original_link(short_id)), HTTPStatus.OK

@@ -10,12 +10,10 @@ from settings import (
 )
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
-# from yacut.queries import MyQuery
 from yacut.utils import get_or_404, get_unique_id
 
 
 class URLMap(db.Model):
-    # query_class = MyQuery
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
     original = db.Column(
@@ -37,13 +35,10 @@ class URLMap(db.Model):
             f'timestamp: {self.timestamp}\n'
         )
 
-    @classmethod
-    def get_original_link(cls, short_id: str, api: bool = True) -> str:
-        # return cls.query.filter_by(short=short_id).first_or_404(api).original
-        return get_or_404(cls, cls.short, short_id, api).original
+    def get_original_link(self, short_id, api=True):
+        return get_or_404(self.__class__, self.__class__.short, short_id, api).original
 
-    @classmethod
-    def __clean_data(cls, data: Dict[str, str], post: bool = False) -> Tuple[str, str]:
+    def __clean_data(self, data: dict, post: bool = False):
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
@@ -51,16 +46,16 @@ class URLMap(db.Model):
         if post and not original:
             raise InvalidAPIUsage(f'"{API_ORIGINAL_REQUEST}" является обязательным полем!')
         if not short:
-            short = get_unique_id(cls, cls.short)
+            short = get_unique_id(self.__class__, self.__class__.short)
         elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(REGEXP, '', short):
             raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
-        elif cls.query.filter_by(short=short).count():
+        elif self.__class__.query.filter_by(short=short).count():
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
 
     def to_intenal_value(self, data: Dict[str, str], clean: bool = True, post: bool = False):
         if clean:
-            self.original, self.short = self.__class__.__clean_data(data, post)
+            self.original, self.short = self.__clean_data(data, post)
         else:
             self.original = data[FORM_ORIGINAL]
             self.short = data[FORM_SHORT]

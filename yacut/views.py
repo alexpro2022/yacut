@@ -21,4 +21,4 @@ def index_view() -> str:
 
 @app.route('/<string:short_id>')
 def redirection(short_id: str) -> Response:
-    return redirect(URLMap.get_original_link(short_id, api=False))
+    return redirect(URLMap().get_original_link(short_id, api=False))
