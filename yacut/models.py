@@ -38,7 +38,7 @@ class URLMap(db.Model):
     def get_original_link(self, short_id, api=True) -> str:
         return get_or_404(self.__class__, self.__class__.short, short_id, api).original
 
-    def __clean_data(self, data: dict, post: bool = False) -> Tuple[str, str]:
+    def _clean_data(self, data: dict, post: bool = False) -> Tuple[str, str]:
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
@@ -55,7 +55,7 @@ class URLMap(db.Model):
 
     def to_intenal_value(self, data: Dict[str, str], clean: bool = True, post: bool = False):
         if clean:
-            self.original, self.short = self.__clean_data(data, post)
+            self.original, self.short = self._clean_data(data, post)
         else:
             self.original = data[FORM_ORIGINAL]
             self.short = data[FORM_SHORT]
