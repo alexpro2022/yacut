@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from typing import Dict
 
 
 class InvalidAPIUsage(Exception):
@@ -10,5 +11,5 @@ class InvalidAPIUsage(Exception):
         if status_code is not None:
             self.status_code = status_code
 
-    def to_representation(self) -> dict:
+    def to_representation(self) -> Dict[str, str]:
         return dict(message=self.msg)
