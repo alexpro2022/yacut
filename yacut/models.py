@@ -10,12 +10,12 @@ from settings import (
 )
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
-from yacut.queries import MyQuery
-from yacut.utils import get_unique_id
+# from yacut.queries import MyQuery
+from yacut.utils import get_or_404, get_unique_id
 
 
 class URLMap(db.Model):
-    query_class = MyQuery
+    # query_class = MyQuery
     id = db.Column(db.Integer, primary_key=True)
     timestamp = db.Column(db.DateTime, default=dt.utcnow)
     original = db.Column(
@@ -39,7 +39,8 @@ class URLMap(db.Model):
 
     @classmethod
     def get_original_link(cls, short_id: str, api: bool = True) -> str:
-        return cls.query.filter_by(short=short_id).first_or_404(api).original
+        # return cls.query.filter_by(short=short_id).first_or_404(api).original
+        return get_or_404(cls, cls.short, short_id, api).original
 
     @classmethod
     def __clean_data(cls, data: Dict[str, str], post: bool = False) -> Tuple[str, str]:
