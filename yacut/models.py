@@ -35,10 +35,10 @@ class URLMap(db.Model):
             f'timestamp: {self.timestamp}\n'
         )
 
-    def get_original_link(self, short_id, api=True):
+    def get_original_link(self, short_id, api=True) -> str:
         return get_or_404(self.__class__, self.__class__.short, short_id, api).original
 
-    def __clean_data(self, data: dict, post: bool = False):
+    def __clean_data(self, data: dict, post: bool = False) -> Tuple[str, str]:
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
