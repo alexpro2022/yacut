@@ -1,5 +1,6 @@
 import re
 from datetime import datetime as dt
+from typing import Tuple
 
 from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
@@ -48,7 +49,7 @@ class URLMap(TimestampMixin, ModelPK):
         return cls.query.filter_by(short=short_id).first_or_404(api).original
 
     @classmethod
-    def __clean_data(cls, data, post: bool = False):
+    def __clean_data(cls, data: dict, post: bool = False) -> Tuple[str, str]:
         if not data:
             raise InvalidAPIUsage('Отсутствует тело запроса')
         original = data.get(API_ORIGINAL_REQUEST)
@@ -63,7 +64,7 @@ class URLMap(TimestampMixin, ModelPK):
             raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
         return original, short
 
-    def to_intenal_value(self, data, clean: bool = True, post: bool = False):
+    def to_intenal_value(self, data: dict, clean: bool = True, post: bool = False):
         if clean:
             self.original, self.short = self.__class__.__clean_data(data, post)
         else:
@@ -71,12 +72,12 @@ class URLMap(TimestampMixin, ModelPK):
             self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data, validation: bool = True):
+    def create(self, db, data: dict, validation: bool = True):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self
 
-    def to_representation(self):
+    def to_representation(self) -> dict:
         return {
             API_ORIGINAL_RESPONSE: self.original,
             API_SHORT_RESPONSE: (BASE_URL + self.short),

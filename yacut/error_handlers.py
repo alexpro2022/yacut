@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Tuple
 
-from flask import render_template, jsonify
+from flask import render_template, jsonify, Response
 
 from yacut import app, db
 from yacut.exceptions import InvalidAPIUsage
@@ -19,5 +19,5 @@ def internal_error(error) -> Tuple[str, int]:
 
 
 @app.errorhandler(InvalidAPIUsage)
-def invalid_api_usage(error) -> Tuple[str, int]:
+def invalid_api_usage(error) -> Tuple[Response, int]:
     return jsonify(error.to_representation()), error.status_code
