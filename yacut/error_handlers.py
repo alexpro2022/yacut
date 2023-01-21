@@ -1,10 +1,23 @@
 from http import HTTPStatus
-from typing import Literal, Tuple
+from typing import Dict, Literal, Tuple
 
 from flask import render_template, jsonify, Response
 
 from yacut import app, db
 from yacut.exceptions import InvalidAPIUsage
+
+
+class InvalidAPIUsage(Exception):
+    status_code = HTTPStatus.BAD_REQUEST
+
+    def __init__(self, msg, status_code=None) -> None:
+        super().__init__()
+        self.msg = msg
+        if status_code is not None:
+            self.status_code = status_code
+
+    def to_representation(self) -> Dict[str, str]:
+        return dict(message=self.msg)
 
 
 @app.errorhandler(HTTPStatus.NOT_FOUND)
