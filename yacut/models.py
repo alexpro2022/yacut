@@ -10,7 +10,7 @@ from settings import (
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
 from yacut.queries import MyQuery
-from yacut.utils import get_or_404, get_unique_id
+from yacut.utils import get_unique_id
 
 
 class TimestampMixin:
