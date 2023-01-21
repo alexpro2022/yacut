@@ -4,7 +4,6 @@ from typing import Dict, Literal, Tuple
 from flask import render_template, jsonify, Response
 
 from yacut import app, db
-from yacut.exceptions import InvalidAPIUsage
 
 
 class InvalidAPIUsage(Exception):
