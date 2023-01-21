@@ -13,7 +13,7 @@
   - Работа с реляционными БД - SQLAlchemy (Flask-SQLAchemy, Flask-Migrate);
   - Создание HTML-шаблонов - Jinja2;
   - Работа с HTML-формами - WTForms (Flask-WTF);
-  - API - реализован кастомный интерфейс на базе модели URLMap b классе исключений InvalidApiUsage.
+  - API - реализован кастомный интерфейс на базе модели URLMap и классе исключений InvalidApiUsage.
 
 [⬆️Оглавление](#оглавление)
 
