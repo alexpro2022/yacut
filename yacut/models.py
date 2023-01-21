@@ -55,7 +55,7 @@ class URLMap(db.Model):
             self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data, validation=True):
+    def create(self, db, data: dict, validation=True):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self

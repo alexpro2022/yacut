@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Dict, Literal, Tuple
+from typing import Literal, Tuple
 
 from flask import render_template, jsonify, Response
 
@@ -15,7 +15,7 @@ class InvalidAPIUsage(Exception):
         if status_code is not None:
             self.status_code = status_code
 
-    def to_representation(self) -> Dict[str, str]:
+    def to_representation(self) -> dict:
         return dict(message=self.msg)
 
 
