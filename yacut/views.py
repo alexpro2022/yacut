@@ -13,9 +13,9 @@ def index_view() -> str:
     if form.validate_on_submit():
         if not form.custom_id.data:
             form.custom_id.data = get_unique_id(URLMap, URLMap.short)
-        URLMap().create(db, form.data, validation=False)
+        new = URLMap().create(db, form.data, validation=False)
         flash('Ваша новая ссылка готова:')
-        flash(f'{BASE_URL + form.custom_id.data}', 'url')
+        flash(f'{BASE_URL + new.short}', 'url')
     return render_template('index.html', form=form)
 
 
