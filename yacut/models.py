@@ -25,8 +25,9 @@ class PKModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
 
-class URLMap(TimestampMixin, PKModel):
+class URLMap(TimestampMixin, db.Model):
     query_class = MyQuery
+    id = db.Column(db.Integer, primary_key=True)
     original = db.Column(
         db.String(LINK_SIZE_MAX),
         nullable=False,
