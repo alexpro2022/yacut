@@ -1,35 +1,22 @@
 from http import HTTPStatus
-# from typing import Literal, Tuple
 
-from flask import render_template, jsonify  # , Response
+from flask import render_template, jsonify
 
 from yacut import app, db
-
-
-class InvalidAPIUsage(Exception):
-    status_code = HTTPStatus.BAD_REQUEST
-
-    def __init__(self, msg, status_code=None) -> None:
-        super().__init__()
-        self.msg = msg
-        if status_code is not None:
-            self.status_code = status_code
-
-    def to_representation(self) -> dict:
-        return dict(message=self.msg)
+from yacut.exceptions import InvalidAPIUsage
 
 
 @app.errorhandler(HTTPStatus.NOT_FOUND)
-def page_not_found(error):  # -> Tuple[str, Literal[HTTPStatus.NOT_FOUND]]:
+def page_not_found(error):
     return render_template('404.html'), HTTPStatus.NOT_FOUND
 
 
 @app.errorhandler(HTTPStatus.INTERNAL_SERVER_ERROR)
-def internal_error(error):  # -> Tuple[str, Literal[HTTPStatus.INTERNAL_SERVER_ERROR]]:
+def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), HTTPStatus.INTERNAL_SERVER_ERROR
 
 
 @app.errorhandler(InvalidAPIUsage)
-def invalid_api_usage(error):  # -> Tuple[Response, int]:
+def invalid_api_usage(error):
     return jsonify(error.to_representation()), error.status_code

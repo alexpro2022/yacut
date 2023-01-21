@@ -3,7 +3,7 @@ import random
 from werkzeug.exceptions import NotFound
 
 from settings import ALPHABET, CUSTOM_ID_SIZE_AUTO
-from yacut.error_handlers import InvalidAPIUsage
+from yacut.exceptions import InvalidAPIUsage
 
 
 def get_short_id() -> str:
