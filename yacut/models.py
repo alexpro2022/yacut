@@ -2,6 +2,8 @@ import re
 from datetime import datetime as dt
 from typing import Dict, Tuple
 
+from flask_sqlalchemy import SQLAlchemy
+
 from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
     API_SHORT_REQUEST, API_SHORT_RESPONSE,
@@ -72,7 +74,7 @@ class URLMap(TimestampMixin, ModelPK):
             self.short = data[FORM_SHORT]
         return self
 
-    def create(self, db, data: Dict[str, str], validation: bool = True):
+    def create(self, db: SQLAlchemy, data: Dict[str, str], validation: bool = True):
         db.session.add(self.to_intenal_value(data, clean=validation, post=True))
         db.session.commit()
         return self
