@@ -14,17 +14,10 @@ from yacut.queries import MyQuery
 from yacut.utils import get_unique_id
 
 
-class TimestampMixin:
-    timestamp = db.Column(db.DateTime, default=dt.utcnow)
-
-
-class PKModel(db.Model):
-    __abstract__ = True
-    id = db.Column(db.Integer, primary_key=True)
-
-
-class URLMap(TimestampMixin, PKModel):
+class URLMap(db.Model):
     query_class = MyQuery
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, default=dt.utcnow)
     original = db.Column(
         db.String(LINK_SIZE_MAX),
         nullable=False,
