@@ -13,3 +13,8 @@ def get_unique_id(model: Any, field: Any) -> str:
     while model.query.filter(field == unique_id).count():
         unique_id = get_short_id()
     return unique_id
+
+
+def is_exist(klass: Any, field: Any, criterion: Any, exception: Any) -> None:
+    if klass.query.filter(field == criterion).count():
+        raise exception

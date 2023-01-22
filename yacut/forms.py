@@ -7,6 +7,7 @@ from wtforms.validators import InputRequired, Length, URL, ValidationError
 
 from settings import CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN, REGEXP
 from yacut.models import URLMap
+from yacut.utils import is_exist
 
 
 class MyForm(FlaskForm):
@@ -30,6 +31,4 @@ class MyForm(FlaskForm):
             if invalid_symbols:
                 raise ValidationError(
                     f'Неверные символы {invalid_symbols} в идентификаторе: "{field.data}"')
-
-            if URLMap.query.filter_by(short=field.data).count():
-                raise ValidationError(f'Имя {field.data} уже занято!')
+            is_exist(URLMap, URLMap.short, field.data, ValidationError(f'Имя {field.data} уже занято!'))

@@ -13,7 +13,7 @@ from settings import (
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
 from yacut.queries import MyQuery
-from yacut.utils import get_unique_id
+from yacut.utils import get_unique_id, is_exist
 
 
 class TimestampMixin:
@@ -62,8 +62,7 @@ class URLMap(TimestampMixin, ModelPK):
             short = get_unique_id(cls, cls.short)
         elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(REGEXP, '', short):
             raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
-        elif cls.query.filter_by(short=short).count():
-            raise InvalidAPIUsage(f'Имя "{short}" уже занято.')
+        is_exist(cls, cls.short, short, InvalidAPIUsage(f'Имя "{short}" уже занято.'))
         return original, short
 
     def to_intenal_value(self, data: Dict[str, str], clean: bool = True, post: bool = False):
