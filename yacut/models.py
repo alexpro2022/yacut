@@ -1,4 +1,3 @@
-import re
 from datetime import datetime as dt
 from typing import Dict, Tuple
 
@@ -8,12 +7,12 @@ from settings import (
     API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
     API_SHORT_REQUEST, API_SHORT_RESPONSE,
     BASE_URL, CUSTOM_ID_SIZE_MANUAL,
-    FORM_ORIGINAL, FORM_SHORT, LINK_SIZE_MAX, REGEXP,
+    FORM_ORIGINAL, FORM_SHORT, LINK_SIZE_MAX, a_zA_Z0_9,
 )
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
 from yacut.queries import MyQuery
-from yacut.utils import get_unique_id, is_exist
+from yacut.utils import get_invalid_symbols, get_unique_id, is_exist
 
 
 class TimestampMixin:
@@ -60,7 +59,7 @@ class URLMap(TimestampMixin, ModelPK):
             raise InvalidAPIUsage(f'"{API_ORIGINAL_REQUEST}" является обязательным полем!')
         if not short:
             short = get_unique_id(cls, cls.short)
-        elif len(short) > CUSTOM_ID_SIZE_MANUAL or re.sub(REGEXP, '', short):
+        elif len(short) > CUSTOM_ID_SIZE_MANUAL or get_invalid_symbols(a_zA_Z0_9, short):
             raise InvalidAPIUsage('Указано недопустимое имя для короткой ссылки')
         is_exist(cls, cls.short, short, InvalidAPIUsage(f'Имя "{short}" уже занято.'))
         return original, short

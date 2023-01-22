@@ -1,13 +1,13 @@
-import re
 from typing import Any
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import InputRequired, Length, URL, ValidationError
 
-from settings import CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN, REGEXP
+from settings import (
+    CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN, a_zA_Z0_9)
 from yacut.models import URLMap
-from yacut.utils import is_exist
+from yacut.utils import get_invalid_symbols, is_exist
 
 
 class MyForm(FlaskForm):
@@ -27,7 +27,7 @@ class MyForm(FlaskForm):
 
     def validate_custom_id(form: Any, field: Any) -> None:
         if field.data:
-            invalid_symbols = set(re.sub(REGEXP, '', field.data))
+            invalid_symbols = get_invalid_symbols(a_zA_Z0_9, field.data)
             if invalid_symbols:
                 raise ValidationError(
                     f'Неверные символы {invalid_symbols} в идентификаторе: "{field.data}"')

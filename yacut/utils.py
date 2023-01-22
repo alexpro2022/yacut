@@ -1,4 +1,5 @@
 import random
+import re
 from typing import Any
 
 from settings import ALPHABET, CUSTOM_ID_SIZE_AUTO
@@ -15,6 +16,10 @@ def get_unique_id(model: Any, field: Any) -> str:
     return unique_id
 
 
-def is_exist(klass: Any, field: Any, criterion: Any, exception: Any) -> None:
+def is_exist(klass: Any, field: Any, criterion: Any, exception: Exception) -> None:
     if klass.query.filter(field == criterion).count():
         raise exception
+
+
+def get_invalid_symbols(pattern: str, string: str):
+    return set(re.sub(pattern, '', string))

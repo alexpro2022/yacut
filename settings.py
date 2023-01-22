@@ -14,7 +14,7 @@ API_ORIGINAL_RESPONSE = 'url'
 API_SHORT_RESPONSE = 'short_link'
 FORM_ORIGINAL = 'original_link'
 FORM_SHORT = 'custom_id'
-REGEXP = r'[a-zA-Z0-9]+'
+a_zA_Z0_9 = r'[a-zA-Z0-9]+'
 
 
 class Config(object):
