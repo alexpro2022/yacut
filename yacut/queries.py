@@ -10,9 +10,8 @@ from yacut.exceptions import InvalidAPIUsage
 class MyQuery(BaseQuery):
     def first_or_404(self, api: bool = False) -> Any:
         try:
-            obj = super().first_or_404()
+            return super().first_or_404()
         except NotFound:
             if api:
                 raise InvalidAPIUsage('Указанный id не найден', HTTPStatus.NOT_FOUND)
             raise NotFound
-        return obj
