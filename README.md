@@ -13,10 +13,9 @@
 
 
 ## Технологии
-[![Python](https://img.shields.io/pypi/pyversions/sqlalchemy)](https://www.python.org/)
-[![Python](https://img.shields.io/badge/-Python_v3.7+-464646?logo=Python)](https://www.python.org/)
+[![Python](https://img.shields.io/pypi/pyversions/sqlalchemy?logo=Python)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/-Flask-464646?logo=flask)](https://palletsprojects.com/p/flask/)
-[![Flask-SQLAchemy](https://img.shields.io/badge/-FlaskSQLAchemy-464646?logo=flask)](https://flask-sqlalchemy.palletsprojects.com/en/latest/)
+[![Flask-SQLAlchemy](https://img.shields.io/badge/-FlaskSQLAlchemy-464646?logo=flask)](https://flask-sqlalchemy.palletsprojects.com/en/latest/)
 [![Flask-Migrate](https://img.shields.io/badge/-Flask_Migrate-464646?logo=Flask)](https://flask-migrate.readthedocs.io/en/latest/index.html)
 [![Flask-WTF](https://img.shields.io/badge/-FlaskWTF-464646?logo=Flask)](https://flask-wtf.readthedocs.io/en/latest/)
 [![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?logo=sqlalchemy)](https://www.sqlalchemy.org/)
