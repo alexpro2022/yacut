@@ -9,11 +9,16 @@
 
 
 ## Технологии
-  - Создание веб-приложений - Flask;
-  - Работа с реляционными БД - SQLAlchemy (Flask-SQLAchemy, Flask-Migrate);
-  - Создание HTML-шаблонов - Jinja2;
-  - Работа с HTML-формами - WTForms (Flask-WTF);
-  - API - реализован кастомный интерфейс на базе модели URLMap и классе исключений InvalidApiUsage.
+[![Python](https://img.shields.io/badge/-Python_v3.7+-464646?logo=Python)](https://www.python.org/)
+[![Flask](https://img.shields.io/badge/-Flask-464646?logo=flask)](https://palletsprojects.com/p/flask/)
+[![Flask-SQLAchemy](https://img.shields.io/badge/-FlaskSQLAchemy-464646?logo=flask)](https://flask-sqlalchemy.palletsprojects.com/en/latest/)
+[![Flask-Migrate](https://img.shields.io/badge/-Flask_Migrate-464646?logo=Flask)](https://flask-migrate.readthedocs.io/en/latest/index.html)
+[![Flask-WTF](https://img.shields.io/badge/-FlaskWTF-464646?logo=Flask)](https://flask-wtf.readthedocs.io/en/latest/)
+[![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?logo=sqlalchemy)](https://www.sqlalchemy.org/)
+[![Alembic](https://img.shields.io/badge/-Alembic-464646?logo=alembic)](https://alembic.sqlalchemy.org/en/latest/)
+[![WTForms](https://img.shields.io/badge/-WTForms-464646?logo=wtforms)](https://wtforms.readthedocs.io/en/master/)
+[![Jinja](https://img.shields.io/badge/-Jinja-464646?logo=Jinja)](https://palletsprojects.com/p/jinja/)
+[![Werkzeug](https://img.shields.io/badge/-Werkzeug-464646?logo=Werkzeug)](https://palletsprojects.com/p/werkzeug/)  
 
 [⬆️Оглавление](#оглавление)
 
