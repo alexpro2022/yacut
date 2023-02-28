@@ -1,6 +1,7 @@
 # Проект: сервис YaCut.
 На большинстве сайтов адреса страниц довольно длинные. Делиться такими длинными ссылками не всегда удобно, а иногда и вовсе невозможно. Удобнее использовать короткие ссылки. 
-Например, ссылка ```http://yacut.ru/lesson``` воспринимается лучше, чем ```https://practicum.yandex.ru/trainer/backend-developer/lesson/12e07d96-31f3-449f-abcf-e468b6a39061/```. 
+Например, ссылка ```http://yacut.ru/lesson``` воспринимается лучше, чем ```https://practicum.yandex.ru/trainer/backend-developer/lesson/12e07d96-31f3-449f-abcf-e468b6a39061/```.
+
 Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
 ## Оглавление
@@ -12,6 +13,7 @@
 
 
 ## Технологии
+[![Python](https://img.shields.io/pypi/pyversions/sqlalchemy)](https://www.python.org/)
 [![Python](https://img.shields.io/badge/-Python_v3.7+-464646?logo=Python)](https://www.python.org/)
 [![Flask](https://img.shields.io/badge/-Flask-464646?logo=flask)](https://palletsprojects.com/p/flask/)
 [![Flask-SQLAchemy](https://img.shields.io/badge/-FlaskSQLAchemy-464646?logo=flask)](https://flask-sqlalchemy.palletsprojects.com/en/latest/)
