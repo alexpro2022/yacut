@@ -3,7 +3,8 @@ import string as s
 
 
 ALPHABET = s.ascii_letters + s.digits
-BASE_URL = 'http://localhost/'
+BASE_URL = 'http://localhost'
+PORT = '5000'
 CUSTOM_ID_SIZE_AUTO = 6
 CUSTOM_ID_SIZE_MANUAL = 16
 LINK_SIZE_MAX = 256

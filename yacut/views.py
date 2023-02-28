@@ -1,7 +1,7 @@
 from flask import flash, redirect, render_template, Response
 
 from yacut import app, db
-from settings import BASE_URL
+from settings import BASE_URL, PORT
 from yacut.forms import MyForm
 from yacut.models import URLMap
 from yacut.utils import get_unique_id
@@ -15,7 +15,7 @@ def index_view() -> str:
             form.custom_id.data = get_unique_id(URLMap, URLMap.short)
         URLMap().create(db, form.data, validation=False)
         flash('Ваша новая ссылка готова:')
-        flash(f'{BASE_URL + form.custom_id.data}', 'url')
+        flash(f'{BASE_URL}:{PORT}/{form.custom_id.data}', 'url')
     return render_template('index.html', form=form)
 
 

@@ -16,8 +16,8 @@ def get_unique_id(model: Any, field: Any) -> str:
     return unique_id
 
 
-def is_exist(klass: Any, field: Any, criterion: Any, exception: Exception) -> None:
-    if klass.query.filter(field == criterion).count():
+def is_exist(class_: Any, field: Any, criterion: Any, exception: Exception) -> None:
+    if class_.query.filter(field == criterion).count():
         raise exception
 
 

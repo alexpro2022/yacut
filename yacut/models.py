@@ -80,5 +80,5 @@ class URLMap(TimestampMixin, ModelPK):
     def to_representation(self) -> Dict[str, str]:
         return {
             API_ORIGINAL_RESPONSE: self.original,
-            API_SHORT_RESPONSE: (BASE_URL + self.short),
+            API_SHORT_RESPONSE: f'{BASE_URL}/{self.short}',
         }
