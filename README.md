@@ -1,10 +1,14 @@
 # Проект: сервис YaCut
+[![status](https://github.com/alexpro2022/yacut/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/yacut/actions)
+[![codecov](https://codecov.io/gh/alexpro2022/hw05_final/branch/master/graph/badge.svg?token=1ETL9DOJEB)](https://codecov.io/gh/alexpro2022/hw05_final)
 На большинстве сайтов адреса страниц довольно длинные. Делиться такими длинными ссылками не всегда удобно, а иногда и вовсе невозможно. Удобнее использовать короткие ссылки. 
 Например, ссылка ```http://yacut.ru/lesson``` воспринимается лучше, чем ```https://practicum.yandex.ru/trainer/backend-developer/lesson/12e07d96-31f3-449f-abcf-e468b6a39061/```.
 
 Проект YaCut — это сервис укорачивания ссылок. Его назначение — ассоциировать длинную пользовательскую ссылку с короткой, которую предлагает сам пользователь или предоставляет сервис.
 
-## Оглавление
+
+
+## Оглавление:
 - [Технологии](#технологии)
 - [Описание работы](#описание-работы)
 - [Установка](#установка)
@@ -12,24 +16,33 @@
 - [Автор](#автор)
 
 
-## Технологии
-[![Python](https://img.shields.io/pypi/pyversions/sqlalchemy?logo=Python)](https://www.python.org/)
-[![Pytest](https://img.shields.io/badge/-Pytest-464646?logo=pytest)](https://docs.pytest.org/en/latest/)
+## Технологии:
+<!-- 1. Языки программирования, библиотеки и пакеты: -->
+[![Python](https://warehouse-camo.ingress.cmh1.psfhosted.org/7c5873f1e0f4375465dfebd35bf18f678c74d717/68747470733a2f2f696d672e736869656c64732e696f2f707970692f707976657273696f6e732f7072657474797461626c652e7376673f6c6f676f3d707974686f6e266c6f676f436f6c6f723d464645383733)](https://www.python.org/)
+[![HTML](https://img.shields.io/badge/-HTML-464646?logo=HTML)](https://html.spec.whatwg.org/multipage/)
+<!-- 2. Тесты: -->
+[![Pytest](https://img.shields.io/badge/-Pytest-464646?logo=Pytest)](https://docs.pytest.org/en/latest/)
+[![Pytest-cov](https://img.shields.io/badge/-Pytest--cov-464646?logo=Pytest)](https://pytest-cov.readthedocs.io/en/latest/)
+[![Coverage](https://img.shields.io/badge/-Coverage-464646?logo=Python)](https://coverage.readthedocs.io/en/latest/)
+[![Faker](https://img.shields.io/badge/-Faker-464646?logo=Python)](https://pypi.org/project/Faker/)
+<!-- 3. Фреймворки, библиотеки и пакеты: -->
 [![Flask](https://img.shields.io/badge/-Flask-464646?logo=flask)](https://palletsprojects.com/p/flask/)
 [![Flask-SQLAlchemy](https://img.shields.io/badge/-FlaskSQLAlchemy-464646?logo=flask)](https://flask-sqlalchemy.palletsprojects.com/en/latest/)
 [![Flask-Migrate](https://img.shields.io/badge/-Flask_Migrate-464646?logo=Flask)](https://flask-migrate.readthedocs.io/en/latest/index.html)
 [![Flask-WTF](https://img.shields.io/badge/-FlaskWTF-464646?logo=Flask)](https://flask-wtf.readthedocs.io/en/latest/)
+[![Jinja](https://img.shields.io/badge/-Jinja-464646?logo=Jinja)](https://palletsprojects.com/p/jinja/)
+[![Werkzeug](https://img.shields.io/badge/-Werkzeug-464646?logo=Werkzeug)](https://palletsprojects.com/p/werkzeug/)
+[![WTForms](https://img.shields.io/badge/-WTForms-464646?logo=wtforms)](https://wtforms.readthedocs.io/en/master/)
+<!-- 4. Базы данных: -->
+[![SQLite3](https://img.shields.io/badge/-SQLite3-464646?logo=SQLite)](https://www.sqlite.com/version3.html)
 [![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?logo=sqlalchemy)](https://www.sqlalchemy.org/)
 [![Alembic](https://img.shields.io/badge/-Alembic-464646?logo=alembic)](https://alembic.sqlalchemy.org/en/latest/)
-[![WTForms](https://img.shields.io/badge/-WTForms-464646?logo=wtforms)](https://wtforms.readthedocs.io/en/master/)
-[![Jinja](https://img.shields.io/badge/-Jinja-464646?logo=Jinja)](https://palletsprojects.com/p/jinja/)
-[![Werkzeug](https://img.shields.io/badge/-Werkzeug-464646?logo=Werkzeug)](https://palletsprojects.com/p/werkzeug/)  
 
 [⬆️Оглавление](#оглавление)
 
 
 
-## Описание работы
+## Описание работы:
 Ключевые возможности сервиса:
   * генерация коротких ссылок и связь их с исходными длинными ссылками,
   * переадресация на исходный адрес при обращении к коротким ссылкам.
@@ -93,7 +106,14 @@ pip install -r requirements.txt
 pip list
 ```
 
-5. Создать БД по сценарию из репозитория **migrations/**:
+5. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
+```
+cp env_example .env
+```
+
+6. Откройте новый **.env**-файл и введите данные для переменных окружения.
+
+7. Создать БД по сценарию из репозитория **migrations/**:
 ```
 flask db upgrade
 ```
@@ -111,7 +131,8 @@ flask db upgrade
 [⬆️Оглавление](#оглавление)
 
 
-## Автор
+
+## Автор:
 [Aleksei Proskuriakov](https://github.com/alexpro2022)
 
 [⬆️В начало](#Проект-сервис-YaCut)
