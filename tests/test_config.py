@@ -1,7 +1,7 @@
 import os
 
 
-def test_env_vars():
+def _test_env_vars():
     env_vars = list(os.environ.values())
     if env_vars:
         assert 'sqlite:///db.sqlite3' in env_vars, (

@@ -1,6 +1,6 @@
 # Проект: сервис YaCut
 [![status](https://github.com/alexpro2022/yacut/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/yacut/actions)
-[![codecov](https://codecov.io/gh/alexpro2022/hw05_final/branch/master/graph/badge.svg?token=1ETL9DOJEB)](https://codecov.io/gh/alexpro2022/hw05_final)
+[![codecov](https://codecov.io/gh/alexpro2022/yacut/branch/master/graph/badge.svg?token=PDXTQWRDJ7)](https://codecov.io/gh/alexpro2022/yacut)
 
 На большинстве сайтов адреса страниц довольно длинные. Делиться такими длинными ссылками не всегда удобно, а иногда и вовсе невозможно. Удобнее использовать короткие ссылки. 
 Например, ссылка ```http://yacut.ru/lesson``` воспринимается лучше, чем ```https://practicum.yandex.ru/trainer/backend-developer/lesson/12e07d96-31f3-449f-abcf-e468b6a39061/```.
