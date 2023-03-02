@@ -19,5 +19,6 @@ a_zA_Z0_9 = r'[a-zA-Z0-9]+'
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///db.sqlite3'
-    SECRET_KEY = os.getenv('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = os.getenv(
+        'DATABASE_URI', 'sqlite:///db.sqlite3')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'qwerty')
