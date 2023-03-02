@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Tuple
 
-from flask import render_template, jsonify, Response
+from flask import Response, jsonify, render_template
 
 from yacut import app, db
 from yacut.exceptions import InvalidAPIUsage

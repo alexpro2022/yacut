@@ -3,12 +3,10 @@ from typing import Dict, Tuple
 
 from flask_sqlalchemy import SQLAlchemy
 
-from settings import (
-    API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
-    API_SHORT_REQUEST, API_SHORT_RESPONSE,
-    BASE_URL, CUSTOM_ID_SIZE_MANUAL,
-    FORM_ORIGINAL, FORM_SHORT, LINK_SIZE_MAX, a_zA_Z0_9,
-)
+from settings import (API_ORIGINAL_REQUEST, API_ORIGINAL_RESPONSE,
+                      API_SHORT_REQUEST, API_SHORT_RESPONSE, BASE_URL,
+                      CUSTOM_ID_SIZE_MANUAL, FORM_ORIGINAL, FORM_SHORT,
+                      LINK_SIZE_MAX, a_zA_Z0_9)
 from yacut import db
 from yacut.exceptions import InvalidAPIUsage
 from yacut.queries import MyQuery

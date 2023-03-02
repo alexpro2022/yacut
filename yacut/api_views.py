@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Tuple
 
-from flask import jsonify, request, Response
+from flask import Response, jsonify, request
 
 from yacut import app, db
 from yacut.models import URLMap

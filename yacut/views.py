@@ -1,7 +1,7 @@
-from flask import flash, redirect, render_template, Response
+from flask import Response, flash, redirect, render_template
 
-from yacut import app, db
 from settings import BASE_URL, PORT
+from yacut import app, db
 from yacut.forms import MyForm
 from yacut.models import URLMap
 from yacut.utils import get_unique_id
