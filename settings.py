@@ -1,6 +1,8 @@
 import os
 import string as s
 
+from tests.test_config import WORKFLOW_DATABASE, WORKFLOW_SECRET_KEY
+
 ALPHABET = s.ascii_letters + s.digits
 BASE_URL = 'http://localhost'
 PORT = '5000'
@@ -20,5 +22,5 @@ a_zA_Z0_9 = r'[a-zA-Z0-9]+'
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = os.getenv(
-        'DATABASE_URI', 'sqlite:///db.sqlite3')
-    SECRET_KEY = os.getenv('SECRET_KEY', 'qwerty')
+        'DATABASE_URI', WORKFLOW_DATABASE)
+    SECRET_KEY = os.getenv('SECRET_KEY', WORKFLOW_SECRET_KEY)
