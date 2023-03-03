@@ -1,4 +1,4 @@
-name: YaCut workflow
+name: YaCut Test Suite
 
 on:
   push:
