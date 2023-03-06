@@ -128,9 +128,7 @@ python -m venv venv
 
 4. Установить все необходимые зависимости из файла **requirements.txt**:
 ```
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-pip list
+python -m pip install --upgrade pip && pip install -r requirements.txt && pip list
 ```
 
 5. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
