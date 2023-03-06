@@ -71,7 +71,8 @@ jobs:
               sudo docker pull ${{ secrets.DOCKER_USERNAME }}/yacut
 
               sudo docker stop $(sudo docker ps -a -q)
-              sudo docker run --rm -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/yacut
+              sudo docker run --name yacut --rm -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/yacut
+              sudo docker yacut exec -it flask run
 
   send_message:
     runs-on: ubuntu-latest
