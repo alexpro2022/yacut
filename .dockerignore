@@ -1,0 +1,12 @@
+__pycache__
+.github/
+tests/
+venv/
+.env
+.flake8
+.gitignore
+env_example
+openapi.yml
+pytest.ini
+README.md
+Dockerfile
