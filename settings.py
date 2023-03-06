@@ -1,7 +1,6 @@
 import os
 import string as s
 
-
 ALPHABET = s.ascii_letters + s.digits
 BASE_URL = 'http://localhost'
 PORT = '5000'
