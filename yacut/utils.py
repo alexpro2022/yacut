@@ -2,7 +2,7 @@ import random
 import re
 from typing import Any
 
-from settings import ALPHABET, CUSTOM_ID_SIZE_AUTO
+from yacut.settings import ALPHABET, CUSTOM_ID_SIZE_AUTO
 
 
 def get_short_id() -> str:

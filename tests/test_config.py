@@ -1,6 +1,6 @@
 import os
 
-from settings import DEFAULT_DATABASE, DEFAULT_SECRET_KEY
+from yacut.settings import DEFAULT_DATABASE, DEFAULT_SECRET_KEY
 
 
 def _test_env_vars():

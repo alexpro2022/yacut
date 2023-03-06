@@ -4,9 +4,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, URLField
 from wtforms.validators import URL, InputRequired, Length, ValidationError
 
-from settings import (CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX, LINK_SIZE_MIN,
-                      a_zA_Z0_9)
 from yacut.models import URLMap
+from yacut.settings import (CUSTOM_ID_SIZE_MANUAL, LINK_SIZE_MAX,
+                            LINK_SIZE_MIN, a_zA_Z0_9)
 from yacut.utils import get_invalid_symbols, is_exist
 
 
