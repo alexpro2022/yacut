@@ -69,7 +69,9 @@ jobs:
             passphrase: ${{ secrets.PASSPHRASE }}
             script: |
               sudo docker pull ${{ secrets.DOCKER_USERNAME }}/yacut
-              sudo docker run --name yacut -it -p 5000:5000 yacut
+
+              sudo docker stop $(sudo docker ps -a -q)
+              sudo docker run --rm -d -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/yacut
 
   send_message:
     runs-on: ubuntu-latest
