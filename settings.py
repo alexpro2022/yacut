@@ -1,7 +1,6 @@
 import os
 import string as s
 
-from tests.test_config import WORKFLOW_DATABASE, WORKFLOW_SECRET_KEY
 
 ALPHABET = s.ascii_letters + s.digits
 BASE_URL = 'http://localhost'
@@ -17,10 +16,11 @@ API_SHORT_RESPONSE = 'short_link'
 FORM_ORIGINAL = 'original_link'
 FORM_SHORT = 'custom_id'
 a_zA_Z0_9 = r'[a-zA-Z0-9]+'
+DEFAULT_DATABASE = 'sqlite:///db.sqlite3'
+DEFAULT_SECRET_KEY = 'qwerty'
 
 
 class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = os.getenv(
-        'DATABASE_URI', WORKFLOW_DATABASE)
-    SECRET_KEY = os.getenv('SECRET_KEY', WORKFLOW_SECRET_KEY)
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URI', DEFAULT_DATABASE)
+    SECRET_KEY = os.getenv('SECRET_KEY', DEFAULT_SECRET_KEY)

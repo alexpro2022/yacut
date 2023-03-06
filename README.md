@@ -120,7 +120,7 @@ python -m venv venv
     source venv/bin/activate
     ```
 
-* Если у вас windows
+* Если у вас Windows
 
     ```
     source venv/Scripts/activate
@@ -150,7 +150,7 @@ flask db upgrade
 ## Запуск:
 
 ```
-(venv) $ flask run
+flask run
 ```
 
 [⬆️Оглавление](#оглавление)
