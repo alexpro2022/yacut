@@ -1,12 +1,2 @@
-__pycache__
-.github/
-tests/
-venv/
-.env
-.flake8
-.gitignore
-env_example
-openapi.yml
-pytest.ini
-README.md
-Dockerfile
+db.sqlite3
+db.sqlite3-journal
