@@ -2,7 +2,8 @@ import os
 import string as s
 
 ALPHABET = s.ascii_letters + s.digits
-BASE_URL = 'http://localhost'
+HOST = os.getenv('HOST', 'localhost')
+BASE_URL = f'http://{HOST}'
 PORT = '5000'
 CUSTOM_ID_SIZE_AUTO = 6
 CUSTOM_ID_SIZE_MANUAL = 16
