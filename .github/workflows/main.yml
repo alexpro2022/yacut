@@ -70,9 +70,7 @@ jobs:
           script: |
             sudo docker stop yacut
             sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/yacut && sudo docker pull ${{ secrets.DOCKER_USERNAME }}/yacut
-            sudo docker run --rm -d -p 5000:5000 --name yacut ${{ secrets.DOCKER_USERNAME }}/yacut
-            sudo docker exec yacut touch .env 
-            sudo docker exec yacut echo HOST=${{ secrets.HOST }} >> .env
+            sudo docker run --rm -e HOST=${{ secrets.HOST }} -d -p 5000:5000 --name yacut ${{ secrets.DOCKER_USERNAME }}/yacut
 
   send_message:
     runs-on: ubuntu-latest
