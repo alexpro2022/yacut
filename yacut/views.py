@@ -1,3 +1,4 @@
+import os
 from flask import Response, flash, redirect, render_template
 
 from yacut import app, db
@@ -15,7 +16,7 @@ def index_view() -> str:
             form.custom_id.data = get_unique_id(URLMap, URLMap.short)
         URLMap().create(db, form.data, validation=False)
         flash('Ваша новая ссылка готова:')
-        flash(f'{BASE_URL}:{PORT}/{form.custom_id.data}', 'url')
+        flash(f"http://{os.getenv('HOST', 'localhost')}:{PORT}/{form.custom_id.data}", 'url')
     return render_template('index.html', form=form)
 
 
