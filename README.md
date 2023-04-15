@@ -125,7 +125,7 @@ cp env_example .env
 <details>
   <summary>Локальный запуск: Flask</summary>
 
-5. Создать и активировать виртуальное окружение:
+5. Создайте и активируйте виртуальное окружение:
 ```
 python -m venv venv
 ```
@@ -141,17 +141,17 @@ python -m venv venv
     source venv/Scripts/activate
     ```
 
-6. Установить все необходимые зависимости из файла **requirements.txt**:
+6. Установите все необходимые зависимости из файла **requirements.txt**:
 ```
 python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
 
-7. Создать БД по сценарию **migrations/** из репозитория:
+7. Создайте БД по сценарию **migrations/** из репозитория:
 ```
 flask db upgrade
 ```
 
-8. Запуск:
+8. Запуск приложения:
 ```
 flask run
 ```
