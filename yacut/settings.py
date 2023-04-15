@@ -1,7 +1,6 @@
 import os
 import string as s
 
-
 DEFAULT_APP = 'yacut'
 DEFAULT_ENV = 'development'
 DEFAULT_SECRET_KEY = 'qwerty'
