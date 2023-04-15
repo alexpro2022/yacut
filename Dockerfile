@@ -1,10 +1,10 @@
-FROM python:3.7-slim
+FROM python:3.9-slim
 
 WORKDIR /app
+COPY requirements.txt .
+RUN python -m pip install --upgrade pip && pip install -r requirements.txt
 COPY migrations/ ./migrations
 COPY yacut/ ./yacut
-COPY requirements.txt .
-RUN pip3 install -r requirements.txt --no-cache-dir
 ENV FLASK_APP yacut
 CMD flask db upgrade && flask run --host=0.0.0.0
 
