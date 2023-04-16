@@ -2,10 +2,7 @@ FLASK_APP=yacut
 FLASK_ENV=development
 SECRET_KEY=MY_SECRET_KEY
 
-# Для локального запуска в Docker-контейнерах раскомментируйте следующие три строки и укажите значение пароля
+# === Для локального запуска в Docker-контейнерах раскомментируйте следующие три строки и укажите значение пароля
 # DATABASE_URI=postgresql://postgres:postgres@db:5432/postgres
 # POSTGRES_PASSWORD=
 # PORT=0
-
-# Для запуска на удаленном сервере укажите его IP-адрес или доменное имя:
-# HOST=
