@@ -79,7 +79,7 @@ jobs:
           script: |
             sudo mkdir -p ${{ secrets.PROJECT_NAME }}
             sudo chmod 777 ${{ secrets.PROJECT_NAME }} 
-            sudo cat > ${{ secrets.PROJECT_NAME }}.env << _EOF_
+            sudo cat > ${{ secrets.PROJECT_NAME }}/.env << _EOF_
               DATABASE_URL=${{ secrets.DATABASE_URL }}
               POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
               SECRET_KEY=${{ secrets.SECRET_KEY }}
