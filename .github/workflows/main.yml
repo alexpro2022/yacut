@@ -82,12 +82,12 @@ jobs:
             sudo cat > ${{ secrets.PROJECT_NAME }}/.env << _EOF_
               DATABASE_URL=${{ secrets.DATABASE_URL }}
               POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+              PORT=${{ secrets.PORT }}
               SECRET_KEY=${{ secrets.SECRET_KEY }}
               PROJECT_NAME=${{ secrets.PROJECT_NAME }}
               DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
               FLASK_APP=${{ secrets.FLASK_APP }}
               FLASK_ENV=${{ secrets.FLASK_ENV }}
-              PORT=${{ secrets.PORT }}
               HOST=${{ secrets.HOST }}
             _EOF_
       - name: copy infra files via ssh

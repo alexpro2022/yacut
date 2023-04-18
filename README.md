@@ -47,6 +47,7 @@
 **База данных:**
 
 [![SQLite3](https://img.shields.io/badge/-SQLite3-464646?logo=SQLite)](https://www.sqlite.com/version3.html)
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-464646?logo=PostgreSQL)](https://www.postgresql.org/)
 [![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-464646?logo=sqlalchemy)](https://www.sqlalchemy.org/)
 [![Alembic](https://img.shields.io/badge/-Alembic-464646?logo=alembic)](https://alembic.sqlalchemy.org/en/latest/)
 
@@ -60,11 +61,12 @@
 
 **CI/CD:**
 
-[![GitHub](https://img.shields.io/badge/-GitHub-464646?logo=GitHub)](https://docs.github.com/en)
 [![GitHub_Actions](https://img.shields.io/badge/-GitHub_Actions-464646?logo=GitHub)](https://docs.github.com/en/actions)
+[![docker_hub](https://img.shields.io/badge/-Docker_Hub-464646?logo=docker)](https://hub.docker.com/)
+[![docker_compose](https://img.shields.io/badge/-Docker%20Compose-464646?logo=docker)](https://docs.docker.com/compose/)
+[![Nginx](https://img.shields.io/badge/-NGINX-464646?logo=NGINX)](https://nginx.org/ru/)
+[![Yandex.Cloud](https://img.shields.io/badge/-Yandex.Cloud-464646?logo=Yandex)](https://cloud.yandex.ru/)
 [![Telegram](https://img.shields.io/badge/-Telegram-464646?logo=Telegram)](https://core.telegram.org/api)
-
-
 
 [⬆️Оглавление](#оглавление)
 
@@ -103,7 +105,7 @@
 ## Установка и запуск:
 <hr>
 <details>
-  <summary>Локальный запуск: Flask или Docker Compose</summary> 
+<summary>Локальный запуск: Flask или Docker Compose</summary> 
 
 1. Клонируйте репозиторий с GitHub:
 ```
@@ -123,7 +125,7 @@ cp env_example .env
 4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить)
 
 <details>
-  <summary>Локальный запуск: Flask</summary>
+<summary>Локальный запуск: Flask</summary>
 
 5. Создайте и активируйте виртуальное окружение:
 ```
@@ -151,14 +153,16 @@ python -m pip install --upgrade pip && pip install -r requirements.txt
 flask db upgrade
 ```
 
-8. Запуск приложения:
+8. Запуск приложения - из корневой директории проекта выполните команду:
 ```
 flask run
 ```
-</details>
+Сервер Flask запустит приложение по адресу http://127.0.0.1:5000.
 
+9. Остановить приложение можно комбинацией клавиш Ctl-C.
+</details>
 <details>
-  <summary>Локальный запуск: Docker Compose</summary>
+<summary>Локальный запуск: Docker Compose</summary>
 
 5. В **.env**-файле раскомментируйте три строки для локального запуска Docker Compose.  
 
@@ -166,11 +170,15 @@ flask run
 ```
 docker compose -f infra/local/docker-compose.yml up -d
 ```
-Проект будет развернут в трех docker-контейнерах по адресу http://localhost.
+Проект будет развернут в трех docker-контейнерах (postgres, application, nginx) по адресу http://localhost.
 
-7. Остановить docker можно командой из корневой директории проекта:
+7. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 ```
 docker compose -f infra/local/docker-compose.yml down
+```
+Если также необходимо удалить тома базы данных и статики:
+```
+docker compose -f infra/local/docker-compose.yml down -v
 ```
 </details>
 </details>
@@ -181,14 +189,32 @@ docker compose -f infra/local/docker-compose.yml down
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
 2. Создайте Actions.secrets согласно списку ниже (значения указаны для примера):
+```
+CODECOV_TOKEN= 
 
+DOCKERHUB_USERNAME= 
+DOCKERHUB_PASSWORD= 
+
+PROJECT_NAME=yacut 
+
+HOST= 
+USERNAME= 
+SSH_KEY=     
+PASSPHRASE= 
+
+TELEGRAM_USER_ID= 
+TELEGRAM_BOT_TOKEN= 
+
+POSTGRES_PASSWORD= 
+DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+PORT=0
+
+FLASK_APP=yacut
+FLASK_ENV=development
+SECRET_KEY=
 ```
 
-```
-
-4. !!! REBUILD: Откройте новый **.env**-файл, раскомментируйте нужный вам способ локального запуска (Uvicorn или Docker Compose) и введите остальные данные для переменных окружения.
-
-3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах на удаленном сервере.
+3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (postgres, application, nginx) на удаленном сервере.
 
 </details>
 <hr>
