@@ -184,7 +184,7 @@ flask run
 ```
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
-Проект будет развернут в трех docker-контейнерах (postgres, application, nginx) по адресу http://localhost.
+Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
 7. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 ```
@@ -207,11 +207,16 @@ docker compose -f infra/local/docker-compose.yml down -v
 PROJECT_NAME=yacut
 SECRET_KEY=
 
+POSTGRES_PASSWORD= 
+DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+PORT=0
+
 CODECOV_TOKEN= 
 
 DOCKERHUB_USERNAME= 
 DOCKERHUB_PASSWORD= 
 
+# Данные удаленного сервера и ssh-подключения:
 HOST= 
 USERNAME= 
 SSH_KEY=     
@@ -220,15 +225,11 @@ PASSPHRASE=
 TELEGRAM_USER_ID= 
 TELEGRAM_BOT_TOKEN= 
 
-POSTGRES_PASSWORD= 
-DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-PORT=0
-
 FLASK_APP=yacut
 FLASK_ENV=development
 ```
 
-3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (postgres, application, nginx) на удаленном сервере.
+3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (db, web, nginx) на удаленном сервере.
 </details>
 <hr>
 
