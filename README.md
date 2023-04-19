@@ -107,6 +107,16 @@
 
 
 ## Установка и запуск:
+### Предварительные условия:
+Предполагается, что пользователь:
+ - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
+    ```
+    docker --version
+    ```
+    ```
+    docker-compose --version
+    ```
+ - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производится на удаленном сервере.
 <hr>
 <details>
 <summary>Локальный запуск: Flask или Docker Compose</summary> 
@@ -172,7 +182,7 @@ flask run
 
 6. Из корневой директории проекта выполните команду:
 ```
-docker compose -f infra/local/docker-compose.yml up -d
+docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (postgres, application, nginx) по адресу http://localhost.
 
@@ -188,18 +198,19 @@ docker compose -f infra/local/docker-compose.yml down -v
 </details>
 <hr>
 <details>
-  <summary>Запуск на удаленном сервере: Docker Compose</summary>
+<summary>Запуск на удаленном сервере: Docker Compose</summary>
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
 2. Создайте Actions.secrets согласно списку ниже (значения указаны для примера):
 ```
+PROJECT_NAME=yacut
+SECRET_KEY=
+
 CODECOV_TOKEN= 
 
 DOCKERHUB_USERNAME= 
 DOCKERHUB_PASSWORD= 
-
-PROJECT_NAME=yacut 
 
 HOST= 
 USERNAME= 
@@ -215,15 +226,11 @@ PORT=0
 
 FLASK_APP=yacut
 FLASK_ENV=development
-SECRET_KEY=
 ```
 
 3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (postgres, application, nginx) на удаленном сервере.
-
 </details>
 <hr>
-
-
 
 [⬆️Оглавление](#оглавление)
 
