@@ -1,4 +1,5 @@
 services:
+
   db:
     image: postgres:15.0-alpine
     restart: always
@@ -13,7 +14,9 @@ services:
     depends_on: 
       - db
     volumes:
-      - static_value:/app/yacut/static/       
+      - static_value:/app/yacut/static/    
+    environment:
+      - PORT=0
     env_file:
       - ./.env
 

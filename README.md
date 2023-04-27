@@ -91,7 +91,7 @@
 
 После отправки формы на главной странице отображается созданная ссылка.
 
-Переход на длинную исходную ссылку осущеставляется при вводе в адресную строку браузера: http://hostname/<имя_короткой_ссылки> , где hostname: 
+Переход на длинную исходную ссылку осущеставляется по адресу: http://hostname/<имя_короткой_ссылки> , где hostname: 
   * 127.0.0.1:5000 
   * localhost
   * IP-адрес удаленного сервера
@@ -107,7 +107,7 @@
 
 
 ## Установка и запуск:
-### Предварительные условия:
+### Предварительные условия для Docker Compose:
 Предполагается, что пользователь:
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
     ```
@@ -122,19 +122,13 @@
 <summary>Локальный запуск: Flask или Docker Compose</summary> 
 
 1. Клонируйте репозиторий с GitHub:
-```
-git clone git@github.com:alexpro2022/yacut.git
-```
+`git clone git@github.com:alexpro2022/yacut.git`
 
 2. Перейдите в созданную директорию проекта:
-```
-cd yacut
-```
+`cd yacut`
 
 3. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
-```
-cp env_example .env
-```
+`cp env_example .env`
 
 4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить)
 
@@ -145,19 +139,15 @@ cp env_example .env
 ```
 python -m venv venv
 ```
-* Если у вас Linux/macOS
+   * Если у вас Linux/macOS
 
-    ```
     source venv/bin/activate
-    ```
 
-* Если у вас Windows
+   * Если у вас windows
 
-    ```
     source venv/Scripts/activate
-    ```
 
-6. Установите все необходимые зависимости из файла **requirements.txt**:
+6. Установите в виртуальное окружение все необходимые зависимости из файла **requirements.txt**:
 ```
 python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
@@ -178,15 +168,13 @@ flask run
 <details>
 <summary>Локальный запуск: Docker Compose</summary>
 
-5. В **.env**-файле раскомментируйте три строки для локального запуска Docker Compose.  
-
-6. Из корневой директории проекта выполните команду:
+5. Из корневой директории проекта выполните команду:
 ```
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
-7. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
+6. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 ```
 docker compose -f infra/local/docker-compose.yml down
 ```
@@ -202,31 +190,28 @@ docker compose -f infra/local/docker-compose.yml down -v
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
-2. Создайте Actions.secrets согласно списку ниже (значения указаны для примера):
+2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из env_example файла:
 ```
 PROJECT_NAME=yacut
-SECRET_KEY=
+SECRET_KEY
 
-POSTGRES_PASSWORD= 
+POSTGRES_PASSWORD 
 DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-PORT=0
 
-CODECOV_TOKEN= 
+CODECOV_TOKEN 
 
-DOCKERHUB_USERNAME= 
-DOCKERHUB_PASSWORD= 
+DOCKERHUB_USERNAME 
+DOCKERHUB_PASSWORD 
 
 # Данные удаленного сервера и ssh-подключения:
-HOST= 
-USERNAME= 
-SSH_KEY=     
-PASSPHRASE= 
+HOST 
+USERNAME 
+SSH_KEY     
+PASSPHRASE 
 
-TELEGRAM_USER_ID= 
-TELEGRAM_BOT_TOKEN= 
-
-FLASK_APP=yacut
-FLASK_ENV=development
+# Учетные данные Телеграм-бота для получения сообщения о успешном завершении workflow
+TELEGRAM_USER_ID 
+TELEGRAM_BOT_TOKEN 
 ```
 
 3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (db, web, nginx) на удаленном сервере.
