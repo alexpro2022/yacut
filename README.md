@@ -122,13 +122,13 @@
 <summary>Локальный запуск: Flask или Docker Compose</summary> 
 
 1. Клонируйте репозиторий с GitHub:
-`git clone git@github.com:alexpro2022/yacut.git`
+```git clone git@github.com:alexpro2022/yacut.git```
 
 2. Перейдите в созданную директорию проекта:
-`cd yacut`
+```cd yacut```
 
 3. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
-`cp env_example .env`
+```cp env_example .env```
 
 4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить)
 
