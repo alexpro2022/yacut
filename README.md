@@ -106,6 +106,9 @@
 
 
 ## Установка и запуск:
+
+Удобно использовать copy-paste - команды копировать из GitHub Readme и вставить в командную строку Git Bash или IDE (например VSCode).
+
 ### Предварительные условия для Docker Compose:
 Предполагается, что пользователь:
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
@@ -117,66 +120,45 @@
 <details>
 <summary>Локальный запуск: Flask или Docker Compose</summary> 
 
-1. Клонируйте репозиторий с GitHub:
+1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 ```
-git clone git@github.com:alexpro2022/yacut-Flask.git
+git clone git@github.com:alexpro2022/<REPOSITORY_NAME>.git && cd <REPOSITORY_NAME> && cp env_example .env && nano .env
 ```
-
-2. Перейдите в созданную директорию проекта:
-```
-cd yacut-Flask
-```
-
-3. Скопируйте содержимое файла **env_example** (при этом будет создан файл *.env*):
-```
-cp env_example .env
-```
-
-4. Откройте новый **.env**-файл и введите данные для переменных окружения (значения даны для примера, но их можно оставить).
-
 <details>
 <summary>Локальный запуск: Flask</summary>
 
-5. Создайте и активируйте виртуальное окружение:
-```
-python -m venv venv
-```
+2. Создайте и активируйте виртуальное окружение:
    * Если у вас Linux/macOS
 
-    source venv/bin/activate
+    python -m venv venv && source venv/bin/activate
 
-   * Если у вас windows
+   * Если у вас Windows
 
-    source venv/Scripts/activate
+    python -m venv venv && source venv/Scripts/activate
 
-6. Установите в виртуальное окружение все необходимые зависимости из файла **requirements.txt**:
+3. Установите в виртуальное окружение все необходимые зависимости из файла **requirements.txt**:
 ```
 python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
 
-7. Создайте БД по сценарию **migrations/** из репозитория:
+4. Создайте БД по сценарию **migrations/** и запустите приложение:
 ```
-flask db upgrade
-```
-
-8. Запуск приложения - из корневой директории проекта выполните команду:
-```
-flask run
+flask db upgrade && flask run
 ```
 Сервер Flask запустит приложение по адресу http://127.0.0.1:5000.
 
-9. Остановить приложение можно комбинацией клавиш Ctl-C.
+5. Остановить приложение можно комбинацией клавиш Ctl-C.
 </details>
 <details>
 <summary>Локальный запуск: Docker Compose</summary>
 
-5. Из корневой директории проекта выполните команду:
+2. Из корневой директории проекта выполните команду:
 ```
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
-6. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
+3. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
 ```
 docker compose -f infra/local/docker-compose.yml down
 ```
