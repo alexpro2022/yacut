@@ -122,19 +122,24 @@
 
 1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 ```
-git clone git@github.com:alexpro2022/<REPOSITORY_NAME>.git && cd <REPOSITORY_NAME> && cp env_example .env && nano .env
+git clone git@github.com:alexpro2022/yacut-Flask.git && \
+cd yacut-Flask && \
+cp env_example .env && \
+nano .env
 ```
 <details>
 <summary>Локальный запуск: Flask</summary>
 
 2. Создайте и активируйте виртуальное окружение:
    * Если у вас Linux/macOS
-
+   ```
     python -m venv venv && source venv/bin/activate
-
+   ```
+   
    * Если у вас Windows
-
+   ```
     python -m venv venv && source venv/Scripts/activate
+   ```
 
 3. Установите в виртуальное окружение все необходимые зависимости из файла **requirements.txt**:
 ```
