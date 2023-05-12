@@ -17,7 +17,9 @@
 
 
 ## Технологии:
+<details><summary>Развернуть</summary>
 
+ 
 **Языки программирования и модули:**
 
 [![Python](https://img.shields.io/badge/python-3.7%20%7C%203.8%20%7C%203.9%20%7C%203.10%20%7C%203.11-blue?logo=python)](https://www.python.org/)
@@ -68,7 +70,7 @@
 [![Telegram](https://img.shields.io/badge/-Telegram-464646?logo=Telegram)](https://core.telegram.org/api)
 
 [⬆️Оглавление](#оглавление)
-
+</details>
 
 
 ## Описание работы:
@@ -110,15 +112,18 @@
 Удобно использовать copy-paste - команды копировать из GitHub Readme и вставить в командную строку Git Bash или IDE (например VSCode).
 
 ### Предварительные условия для Docker Compose:
+<details><summary>Развернуть</summary>
+
 Предполагается, что пользователь:
+ - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производиться на удаленном сервере.
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
     ```
     docker --version && docker-compose --version
     ```
- - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производится на удаленном сервере.
+</details>
 <hr>
 <details>
-<summary>Локальный запуск: Flask или Docker Compose</summary> 
+<summary>Локальный запуск</summary> 
 
 1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 ```
@@ -128,7 +133,7 @@ cp env_example .env && \
 nano .env
 ```
 <details>
-<summary>Локальный запуск: Flask</summary>
+<summary>сервер Flask/SQLite3</summary>
 
 2. Создайте и активируйте виртуальное окружение:
    * Если у вас Linux/macOS
@@ -155,7 +160,7 @@ flask db upgrade && flask run
 5. Остановить приложение можно комбинацией клавиш Ctl-C.
 </details>
 <details>
-<summary>Локальный запуск: Docker Compose</summary>
+<summary>Docker Compose/PostgreSQL</summary>
 
 2. Из корневой директории проекта выполните команду:
 ```
@@ -172,10 +177,10 @@ docker compose -f infra/local/docker-compose.yml down
 docker compose -f infra/local/docker-compose.yml down -v
 ```
 </details>
-</details>
-<hr>
+<hr></details>
+
 <details>
-<summary>Запуск на удаленном сервере: Docker Compose</summary>
+<summary>Запуск на удаленном сервере</summary>
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
