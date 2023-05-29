@@ -127,7 +127,7 @@
 
 1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
 ```
-git clone git@github.com:alexpro2022/yacut-Flask.git && \
+git clone https://github.com/alexpro2022/yacut-Flask.git && \
 cd yacut-Flask && \
 cp env_example .env && \
 nano .env
