@@ -93,7 +93,7 @@
 
 После отправки формы на главной странице отображается созданная ссылка.
 
-Переход на длинную исходную ссылку осущеставляется по адресу: http://hostname/<имя_короткой_ссылки> , где hostname: 
+Переход на длинную исходную ссылку осущеставляется по адресу: `http://hostname/<имя_короткой_ссылки>` , где `hostname`: 
   * 127.0.0.1:5000 
   * localhost
   * IP-адрес удаленного сервера
@@ -118,7 +118,7 @@
 Предполагается, что пользователь:
  - создал аккаунт [DockerHub](https://hub.docker.com/), если запуск будет производиться на удаленном сервере.
  - установил [Docker](https://docs.docker.com/engine/install/) и [Docker Compose](https://docs.docker.com/compose/install/) на локальной машине или на удаленном сервере, где проект будет запускаться в контейнерах. Проверить наличие можно выполнив команды:
-    ```
+    ```bash
     docker --version && docker-compose --version
     ```
 </details>
@@ -127,7 +127,7 @@
 <summary>Локальный запуск</summary> 
 
 1. Клонируйте репозиторий с GitHub и введите данные для переменных окружения (значения даны для примера, но их можно оставить):
-```
+```bash
 git clone https://github.com/alexpro2022/yacut-Flask.git && \
 cd yacut-Flask && \
 cp env_example .env && \
@@ -138,43 +138,43 @@ nano .env
 
 2. Создайте и активируйте виртуальное окружение:
    * Если у вас Linux/macOS
-   ```
+   ```bash
     python -m venv venv && source venv/bin/activate
    ```
    
    * Если у вас Windows
-   ```
+   ```bash
     python -m venv venv && source venv/Scripts/activate
    ```
 
 3. Установите в виртуальное окружение все необходимые зависимости из файла **requirements.txt**:
-```
+```bash
 python -m pip install --upgrade pip && pip install -r requirements.txt
 ```
 
 4. Создайте БД по сценарию **migrations/** и запустите приложение:
-```
+```bash
 flask db upgrade && flask run
 ```
 Сервер Flask запустит приложение по адресу http://127.0.0.1:5000.
 
 5. Остановить приложение можно комбинацией клавиш Ctl-C.
-</details>
+<hr></details>
 <details>
 <summary>Docker Compose/PostgreSQL</summary>
 
 2. Из корневой директории проекта выполните команду:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml up -d --build
 ```
 Проект будет развернут в трех docker-контейнерах (db, web, nginx) по адресу http://localhost.
 
 3. Остановить docker и удалить контейнеры можно командой из корневой директории проекта:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml down
 ```
 Если также необходимо удалить тома базы данных и статики:
-```
+```bash
 docker compose -f infra/local/docker-compose.yml down -v
 ```
 </details>
@@ -185,8 +185,8 @@ docker compose -f infra/local/docker-compose.yml down -v
 
 1. Сделайте [форк](https://docs.github.com/en/get-started/quickstart/fork-a-repo) в свой репозиторий.
 
-2. Создайте Actions.Secrets согласно списку ниже (значения указаны для примера) + переменные окружения из env_example файла:
-```
+2. Создайте `Actions.Secrets` согласно списку ниже (значения указаны для примера) + переменные окружения из env_example файла:
+```py
 PROJECT_NAME=yacut
 SECRET_KEY
 
@@ -209,7 +209,7 @@ TELEGRAM_USER_ID
 TELEGRAM_BOT_TOKEN 
 ```
 
-3. Запустите вручную workflow, чтобы автоматически развернуть проект в трех docker-контейнерах (db, web, nginx) на удаленном сервере.
+3. Запустите вручную `workflow`, чтобы автоматически развернуть проект в трех docker-контейнерах (db, web, nginx) на удаленном сервере.
 </details>
 <hr>
 
@@ -219,7 +219,7 @@ TELEGRAM_BOT_TOKEN
 
 ## Удаление:
 Для удаления проекта выполните команду:
-```
+```bash
 cd .. && rm -fr yacut-Flask && deactivate
 ```
 
