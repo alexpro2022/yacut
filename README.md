@@ -1,6 +1,6 @@
 # Проект: сервис YaCut
-[![status](https://github.com/alexpro2022/yacut/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/yacut/actions)
-[![codecov](https://codecov.io/gh/alexpro2022/yacut/branch/master/graph/badge.svg?token=PDXTQWRDJ7)](https://codecov.io/gh/alexpro2022/yacut)
+[![YaCut CI/CD](https://github.com/alexpro2022/yacut-Flask/actions/workflows/main.yml/badge.svg)](https://github.com/alexpro2022/yacut-Flask/actions/workflows/main.yml)
+[![codecov](https://codecov.io/gh/alexpro2022/yacut-Flask/branch/master/graph/badge.svg?token=PDXTQWRDJ7)](https://codecov.io/gh/alexpro2022/yacut-Flask)
 
 На большинстве сайтов адреса страниц довольно длинные. Делиться такими длинными ссылками не всегда удобно, а иногда и вовсе невозможно. Удобнее использовать короткие ссылки. 
 
